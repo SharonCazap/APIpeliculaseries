@@ -82,6 +82,33 @@ const crudPeliculas = (app) => {
     
     };
     
+    //PUT - Update a register already exists
+    modificarPeliculaseries = function(req, res) {
+        Pelicula.findById(req.params.id, function(err, peliculaseries) {
+            peliculaseries.id = req.body.id;
+        
+            peliculaseries.titulo = req.body.titulo;
+
+            peliculaseries.fechaEstreno = req.body.fechaEstreno;
+
+            peliculaseries.actores = req.body.actores;
+
+            peliculaseries.cover = req.body.cover;
+
+            peliculaseries.trailer = req.body.trailer;
+
+            peliculaseries.sinopsis = req.body.sinopsis;
+            
+            peliculaseries.save(function(err) {
+                if(!err) {
+                    console.log('Updated');
+                } else {
+                    console.log('ERROR: ' + err);
+                }
+                res.send(peliculaseries);
+            });
+        });
+    }
     
     
     //Rutas de la API, asociadas a una función
@@ -89,6 +116,8 @@ const crudPeliculas = (app) => {
     app.get('/peliculaseries', findAllPeliculas);
     
     app.post('/peliculaseries', addPelicula);
+
+    app.put('/peliculaseries/:id', modificarPeliculaseries);
     
     }
     
