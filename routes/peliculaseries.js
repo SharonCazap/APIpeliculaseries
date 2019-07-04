@@ -109,7 +109,21 @@ const crudPeliculas = (app) => {
             });
         });
     }
-    
+
+    //DELETE - Delete a Cerveceria with specified ID
+    deletePeliculaseries = function(req, res) {
+        Pelicula.findById(req.params.id, function(err, peliculaseries) {
+            peliculaseries.remove(function(err) {
+                if(!err) {
+                    console.log('Removed');
+                } else {
+                    console.log('ERROR: ' + err);
+                }
+        res.send(peliculaseries);
+            })
+        });
+    }
+        
     
     //Rutas de la API, asociadas a una función
     
@@ -118,6 +132,8 @@ const crudPeliculas = (app) => {
     app.post('/peliculaseries', addPelicula);
 
     app.put('/peliculaseries/:id', modificarPeliculaseries);
+
+    app.delete('/peliculaseries/:id', deletePeliculaseries); //Elimina una cerveceria
     
     }
     
